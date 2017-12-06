@@ -40,7 +40,7 @@ library
                     ,   lens         >=4.15 && <4.16
                     ,   semigroups      == 0.18.*
                     ,   text            == 1.2.2.*
-                    ,   validation      == 0.5.*
+                    ,   validation      >= 0.5 && <0.6
                     ,   vector          == 0.12.*
                     ,   transformers    == 0.5.2.*
 
