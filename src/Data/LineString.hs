@@ -35,7 +35,7 @@ import Data.Foldable ( Foldable(..) )
 import Data.Functor ( (<$>) )
 import Data.Maybe ( fromMaybe )
 import Data.Traversable ( Traversable(..) )
-import Data.Validation ( Validate(..), Validation, _Failure, _Success )
+import Data.Validation ( Validate(..), AccValidation, _Failure, _Success )
 
 -- $setup
 --
@@ -104,19 +104,19 @@ fromLineString (LineString x y zs) = x : y : zs
 -- creates a LineString out of a list of elements,
 -- if there are enough elements (needs at least 2) elements
 --
--- >>> fromList [] :: Validation ListToLineStringError (LineString Int)
+-- >>> fromList [] :: AccValidation ListToLineStringError (LineString Int)
 -- Failure List Empty
 --
--- >>> fromList [0] :: Validation ListToLineStringError (LineString Int)
+-- >>> fromList [0] :: AccValidation ListToLineStringError (LineString Int)
 -- Failure Singleton List
 --
--- >>> fromList [0, 1] :: Validation ListToLineStringError (LineString Int)
+-- >>> fromList [0, 1] :: AccValidation ListToLineStringError (LineString Int)
 -- Success [0,1]
 --
--- >>> fromList [0, 1, 2] :: Validation ListToLineStringError (LineString Int)
+-- >>> fromList [0, 1, 2] :: AccValidation ListToLineStringError (LineString Int)
 -- Success [0,1,2]
 --
--- >>> fromList [0, 1, 2, 4, 5, 0] :: Validation ListToLineStringError (LineString Int)
+-- >>> fromList [0, 1, 2, 4, 5, 0] :: AccValidation ListToLineStringError (LineString Int)
 -- Success [0,1,2,4,5,0]
 --
 fromList
@@ -179,7 +179,7 @@ instance (FromJSON a, Show a) => FromJSON (LineString a) where
 
 -- helpers
 
-fromListValidated :: [a] -> Validation ListToLineStringError (LineString a)
+fromListValidated :: [a] -> AccValidation ListToLineStringError (LineString a)
 fromListValidated = fromList
 
 parseError :: Value -> Maybe ListToLineStringError -> Parser b
